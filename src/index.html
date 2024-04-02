@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket.IO Example</title>
+</head>
+<body>
+<h1>Real-time Chat</h1>
+<ul id="messages"></ul>
+<form id="chat-form">
+    <input type="text" id="message-input" autocomplete="off" />
+    <button>Send</button>
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    // 서버에서 전달된 메시지 수신
+    socket.on('chat message', (msg) => {
+        const messages = document.getElementById('messages');
+        const li = document.createElement('li');
+        li.textContent = msg;
+        messages.appendChild(li);
+    });
+
+    // 메시지 전송
+    const form = document.getElementById('chat-form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('message-input');
+        const msg = input.value;
+        socket.emit('chat message', msg);
+        input.value = '';
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "belogger-tcp",
+  "version": "0.0.1",
+  "private": true,
+  "main": "src/index.js",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "net": "^1.0.2",
+    "winston": "^3.13.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "scripts": {
+    "local": "node src/index.js --mode local",
+    "dev": "node src/index.js --mode dev",
+    "stage": "node src/index.js --mode stage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tlk-paas-platform/belogger-tcp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tlk-paas-platform/belogger-tcp/issues"
+  },
+  "homepage": "https://github.com/tlk-paas-platform/belogger-tcp#readme",
+  "description": "belogger tcp"
+}
