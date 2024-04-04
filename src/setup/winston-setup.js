@@ -1,8 +1,8 @@
-import winston from 'winston';
-import winstonDaily from 'winston-daily-rotate-file';
-import EnvSetup from "./env-setup.js";
+const winston = require('winston');
+const winstonDaily = require('winston-daily-rotate-file');
+const envSetup = require("./env-setup.js");
 
-EnvSetup();
+envSetup();
 
 const transport = new winstonDaily({
   datePattern: 'YYYY-MM-DD',
@@ -38,4 +38,4 @@ if(process.env.npm_lifecycle_event === 'local') {
   }));
 }
 
-export default Logging;
+module.exports = Logging;

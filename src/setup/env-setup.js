@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 const EnvSetup = () => {
   dotenv.config({
@@ -7,4 +7,4 @@ const EnvSetup = () => {
   });
 };
 
-export default EnvSetup;
+module.exports = EnvSetup;

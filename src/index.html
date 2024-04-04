@@ -1,36 +1,108 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Socket.IO Example</title>
-</head>
-<body>
-<h1>Real-time Chat</h1>
-<ul id="messages"></ul>
-<form id="chat-form">
-    <input type="text" id="message-input" autocomplete="off" />
-    <button>Send</button>
-</form>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
-<script>
-    const socket = io();
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Chatting</title>
+    <style>
+      body {
+        background-color: black;
+        width: 600px;
+        height: 800px;
+        color: #f0f0f0;
+        margin-left: 20px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .msgLine {
+        margin: 15px;
+      }
+      .msgBox {
+        border: 1px solid black;
+        background: bisque;
+        padding: 2px 5px;
+        border-radius: 10px;
+        color: black;
+      }
+      #myChat {
+        width: 80%;
+        height: 5%;
+        border-radius: 8px;
+      }
+      #chatContent {
+        width: 100%;
+        height: 95%;
+        border-radius: 8px;
+        background-color: #f0f0f0;
+        overflow-y: auto;
+      }
+      #send {
+        margin-top: 10px;
+        width: 19%;
+        height: 5%;
+        border-radius: 8px;
+        background: antiquewhite;
+        color: black;
+      }
+      h1 {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Chatting</h1>
+    <!-- chat contents will be written down below. -->
+    <div id="chatContent"></div>
+    <label for="myChat"></label><input id="myChat" type="text"/>
+    <button type="submit" id="send" onclick="sendMessage()">전송</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+    <script>
+      const socket = io.connect('http://localhost:9004', {
+        path: '/socket.io'
+      });
 
-    // 서버에서 전달된 메시지 수신
-    socket.on('chat message', (msg) => {
-        const messages = document.getElementById('messages');
-        const li = document.createElement('li');
-        li.textContent = msg;
-        messages.appendChild(li);
-    });
+      // receiving message.
+      socket.on('message', (data) => {
+        let receiverSocketId = data.senderId;
+        if(socket.id !== receiverSocketId) {
+          const msgLine = document.createElement('div');
+          msgLine.classList.add('msgLine');
 
-    // 메시지 전송
-    const form = document.getElementById('chat-form');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const input = document.getElementById('message-input');
-        const msg = input.value;
-        socket.emit('chat message', msg);
-        input.value = '';
-    });
-</script>
-</body>
+          const msgBox = document.createElement('div');
+          msgBox.classList.add('msgBox');
+          msgBox.textContent = data.msg;
+          msgBox.style.display = 'inline-block';
+
+          msgLine.appendChild(msgBox);
+          document.getElementById('chatContent').appendChild(msgLine);
+          window.scrollTo(0, document.body.scrollHeight);
+        }
+      });
+
+      // sending a message
+      const myChat = document.getElementById('myChat');
+      myChat.addEventListener('keyup', (event) => {
+        if (event.keyCode === 13 && myChat.value !== "") {
+          sendMessage();
+        }
+      });
+
+      const sendMessage = () => {
+        const msgLine = document.createElement('div');
+        msgLine.classList.add('msgLine');
+        msgLine.style.textAlign = 'right';
+
+        const msgBox = document.createElement('div');
+        msgBox.classList.add('msgBox');
+        msgBox.textContent = myChat.value;
+        msgBox.style.display = 'inline-block';
+
+        msgLine.appendChild(msgBox);
+        document.getElementById('chatContent').appendChild(msgLine);
+        socket.emit('message', myChat.value);
+        myChat.value = "";
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    </script>
+  </body>
 </html>

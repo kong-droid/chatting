@@ -1,6 +1,5 @@
-Belogger-tcp
+Chatting
 =============
-- smart-pod tcp server
 - version and purpose
 ``````
     > node.js
@@ -9,9 +8,8 @@ Belogger-tcp
     > npm
         - version: (local) 8.11.0 / (stage) 8.5.5 / (dev) 8.5.5
         - purpose: package manager
-    > axios
-        - version: 1.6.8 (not affected by node.js)
-        - purpose: ajax
+    > express.js
+    > socket.io
     > winston
         - version: 3.13.0 (not affected by node.js)
         - purpose: connection log
@@ -28,7 +26,4 @@ Belogger-tcp
 - start
 ```
     > local: npm run local
-    > dev: npm run dev
-    > stage: npm run stage
-    > prod: npm rum prod
 ```
