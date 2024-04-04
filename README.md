@@ -9,19 +9,15 @@ Chatting
         - version: (local) 8.11.0 / (stage) 8.5.5 / (dev) 8.5.5
         - purpose: package manager
     > express.js
+        - version: 4.19.2
     > socket.io
+        - version: 4.7.5
     > winston
         - version: 3.13.0 (not affected by node.js)
-        - purpose: connection log
     > winston-daily-rotate-file
         - version: 5.0.0 (not affected by node.js)
-        - purpose: make daily log
     > dotenv
-        - version: 16.4.5 (not affected by node.js)
-        - purpose: environment        
-    > net
-        - version: 1.0.2 (not affected by node.js)
-        - purpose: connect device             
+        - version: 16.4.5 (not affected by node.js)                
 ``````
 - start
 ```
